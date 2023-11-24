@@ -100,9 +100,7 @@ bool isValidEmail(const std::string& email){
 
 }
 
-//một tham chiếu tới một vector chưa các con trỏ shared_pointer trỏ tới đối tượng Employee -> cho phép thao tác trực tiếp tới đối tượng mà k cần sao chép, bất kỳ thay dổi nào bên trong cx ảnh hưởng đến employees gốc
-//một tham chiếu hằng tới các con trỏ  shared_pointer trỏ tới đối tug Employee
-//employee là danh sách cta muốn theem newEmployee vào phía cuối của danh sách
+
 void AddEmployee(std::vector<std::shared_ptr<Employee>>& employees, const std::shared_ptr<Employee>& newEmployee){
     employees.push_back(newEmployee);
     Employee::CountEmployees++;
@@ -110,7 +108,6 @@ void AddEmployee(std::vector<std::shared_ptr<Employee>>& employees, const std::s
 
 void EditEmployee(std::vector<std::shared_ptr<Employee>>& employees, int ID){
     //Tìm nhan vien theo ID và dieu chinh thong tin
-    //duyệt qua từng phần tử trong vector employees và mỗi phần tử được tham chiếu bởi biến tạm emp, cho phép ta thao tác trực tiếp với từng nhân viên trong danh sách employees.
     bool Found = false;
     for(const auto& emp : employees){
         if(emp -> getID() == ID){
