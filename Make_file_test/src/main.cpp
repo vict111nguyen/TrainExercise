@@ -8,7 +8,7 @@ int main() {
     int sum = add(a, b);
     int diff = substract(a, b);
     std::cout << "Sum: " << sum << std::endl;
-    std::cout << "Diff: " << diff << std::endl;
+    
     OtherFunctions::printMessage("Hello World");
     return 0;
 }
