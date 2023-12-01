@@ -1,6 +1,12 @@
-#include "experience.h"
+#include "../headers/experience.h"
+#include "../headers/employee.h"
 
-Experience::Experience(){};
+Experience::Experience():Employee::Employee(){
+    std::cout << "Enter Experience In Year: " ;
+    std::cin >> ExpInYear; std::cin.ignore();
+    std::cout << "Enter Professional Skill: ";
+    getline(std::cin,ProSkill);
+};
 
 Experience::Experience(int ID, std::string fullName, std::string birthDay, std::string phone, std::string email, int ExpInYear, std::string ProSkill)
             : Employee(ID, fullName, birthDay, phone, email, 0),ExpInYear(ExpInYear), ProSkill(ProSkill){};
@@ -17,9 +23,9 @@ int Experience::getExpInYear() const{
 std::string Experience::getProskill() const{
     return ProSkill;
 };
-int Experience::setExpInYear(const int& Exp){
+void Experience::setExpInYear(const int& Exp){
     this -> ExpInYear = Exp;
 };
-std::string Experience::setProSkill(const std::string& ProSkill){
+void Experience::setProSkill(const std::string& ProSkill){
     this -> ProSkill = ProSkill;
 };

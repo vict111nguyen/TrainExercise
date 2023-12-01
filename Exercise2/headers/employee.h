@@ -13,22 +13,20 @@ public:
     void AddCertificate(std::shared_ptr<Certificate> cert);
 
     int getID() const;
-
     std::string getName() const;
-
     std::string getBirthday() const ;
     std::string getPhone();
     std::string getEmail();
     int getEmpType();
 
-    std::string setName(const std::string& name);
-    std::string setBirthday(const std::string& birthDay);
-    std::string setPhone(const std::string& phone);
-    std::string setEmail(const std::string& email);
+    void setName(const std::string& name);
+    void setBirthday(const std::string& birthDay);
+    void setPhone(const std::string& phone);
+    void setEmail(const std::string& email);
 
     void showInfor() const;
 
-    static int CountEmployees;
+    // static int CountEmployees;
 
     virtual ~Employee(){};
 

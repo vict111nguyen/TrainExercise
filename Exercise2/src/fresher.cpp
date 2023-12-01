@@ -1,6 +1,11 @@
-#include "fresher.h"
+#include "../headers/fresher.h"
 
-Fresher::Fresher(){};
+Fresher::Fresher():Employee::Employee(){
+    std::cout << "Enter Graduation Date: " ;
+    getline(std::cin, graDate);
+    std::cout << "Enter Professional Skill: ";
+    getline(std::cin, graRank);
+};
 Fresher::Fresher(int ID, std::string fullName, std::string birthDay, std::string phone, std::string email, std::string graDate, std::string graRank)
         : Employee(ID, fullName, birthDay, phone, email, 1), graDate(graDate), graRank(graRank){};
 
@@ -15,9 +20,9 @@ std::string Fresher::getGraDate() const{
 std::string Fresher::getGraRank() const{
     return graRank;
 };
-std::string Fresher::setGraDate(const std::string& graDate){
+void Fresher::setGraDate(const std::string& graDate){
     this -> graDate = graDate;
 };
-std::string Fresher::setGraRank(const std::string& gradRank){
+void Fresher::setGraRank(const std::string& gradRank){
     this -> graRank = graRank;
 };

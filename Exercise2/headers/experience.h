@@ -10,8 +10,8 @@ public:
 
     int getExpInYear() const;
     std::string getProskill() const;
-    int setExpInYear(const int& Exp);
-    std::string setProSkill(const std::string& ProSkill);
+    void setExpInYear(const int& Exp);
+    void setProSkill(const std::string& ProSkill);
     
 private:
     int ExpInYear;

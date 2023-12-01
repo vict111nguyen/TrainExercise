@@ -1,5 +1,9 @@
-#include "employeeManager.h"
-#include "Validator.h"
+#include "../headers/employeeManager.h"
+#include "../headers/validator.h"
+
+std::vector<std::shared_ptr<Employee>> EmployeeManagement::getEmployee(){
+    return employees;
+}
 
 void EmployeeManagement::AddEmployee(const std::shared_ptr<Employee> newEmployee){
     // Kiểm tra nếu ID đã tồn tại
@@ -13,38 +17,81 @@ void EmployeeManagement::AddEmployee(const std::shared_ptr<Employee> newEmployee
         employees.push_back(newEmployee);
     }
 
-    Employee::CountEmployees++;
+    // Employee::CountEmployees++;
 }
 
-void EmployeeManagement::EditEmployee(int ID, int EmpType){
+void EmployeeManagement::EditEmployee(int ID){
     //Tìm nhan vien theo ID và dieu chinh thong tin
     //duyệt qua từng phần tử trong vector employees và mỗi phần tử được tham chiếu bởi biến tạm emp, cho phép ta thao tác trực tiếp với từng nhân viên trong danh sách employees.
     bool Found = false;
     for(const auto& emp : employees){
-        if(emp -> getID() == ID && emp -> getEmpType() == EmpType){
-
-           
+        if(emp -> getID() == ID){
             // Cho phép người dùng chỉnh sửa thông tin
             std::string newName, newBirthday, newPhone, newEmail;
-            std::cout << "Enter new full name: ";
-            std::getline(std::cin, newName);
-            Validator::ValidateFullName(newName);
-            emp->setName(newName);
-            std::cout << "Enter new birthday: ";
-            std::getline(std::cin, newBirthday);
-            Validator::ValidateFullName(newBirthday);
-            emp->setName(newBirthday);
-            std::cout << "Enter new phone: ";
-            std::getline(std::cin, newPhone);
-            Validator::ValidateFullName(newPhone);
-            emp->setName(newPhone);
-            std::cout << "Enter new email: ";
-            std::getline(std::cin, newEmail);
-            Validator::ValidateFullName(newEmail);
-            emp->setName(newEmail);
+            bool validInput = false;
+            while(!validInput){
+                try
+                {
+                    std::cout << "Enter new name: ";
+                    getline(std::cin, newName); 
+                    Validator::ValidateFullName(newName);
+                    validInput = true;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+            }
+
+            validInput = false;
+            while (!validInput)
+            {
+                try
+                {
+                    std::cout << "Enter new Date of birth: ";
+                    getline(std::cin, newBirthday); 
+                    Validator::ValidateBirthDay(newBirthday); 
+                    validInput = true;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+            }
+            validInput = false;
+            while (!validInput)
+            {
+                try
+                {
+                    std::cout << "Enter new Phone number: ";
+                    getline(std::cin, newPhone); 
+                    Validator::ValidatePhone(newPhone);
+                    validInput = true;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+            }
+            
+            validInput = false;
+            while (!validInput)
+            {
+                try
+                {
+                    std::cout << "Enter new Email: ";
+                    getline(std::cin, newEmail); 
+                    Validator::ValidateEmail(newEmail);
+                    validInput = true;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }  
+            }
 
             //Experience
-            if(EmpType == 0){
+            if(emp ->getEmpType() == 0){
                 //Thực hiện downcasting để sử dụng method cua lớp dẫn xuất Experience
                 auto experience = std::dynamic_pointer_cast<Experience>(emp);
                 int newExpInYear;
@@ -62,7 +109,7 @@ void EmployeeManagement::EditEmployee(int ID, int EmpType){
             }
 
             //Fresher
-            else if(EmpType == 1){
+            else if(emp ->getEmpType() == 1){
                 auto fresher = std::dynamic_pointer_cast<Fresher>(emp);
                 std::string newGraDate;
                 std::string newGraRank;
@@ -79,7 +126,7 @@ void EmployeeManagement::EditEmployee(int ID, int EmpType){
                 fresher->showInfor();
             }
 
-            else if(EmpType == 2){
+            else if(emp ->getEmpType() == 2){
                 auto intern = std::dynamic_pointer_cast<Intern>(emp);
                 std::string newMajor;
                 int newSemester;
@@ -114,20 +161,20 @@ void EmployeeManagement::DeleteEmployee(int ID){
     for (size_t i = 0; i < employees.size(); i++){
         if(employees[i] -> getID()== ID){
             employees.erase(employees.begin() +i);
-            Employee::CountEmployees--;
+            // Employee::CountEmployees--;
             break;
         }
     }
 }
 
-void EmployeeManagement::FindAllInterns() const{
-    std::cout << "All the Interns: " << std::endl;
+void EmployeeManagement::FindByID(int ID) const{
     for(const auto& emp : employees){
-        if(emp -> getEmpType() == 2){
+        if(emp -> getID() == ID){
             emp -> showInfor();
         }
     }
 }
+
 void EmployeeManagement::FindAllExperiences() const{
     std::cout << "All the Interns: " << std::endl;
     for(const auto& emp : employees){
@@ -140,6 +187,14 @@ void EmployeeManagement::FindAllFreshers() const{
     std::cout << "All the Interns: " << std::endl;
     for(const auto& emp : employees){
         if(emp -> getEmpType() == 1){
+            emp -> showInfor();
+        }
+    }
+}
+void EmployeeManagement::FindAllInterns() const{
+    std::cout << "All the Interns: " << std::endl;
+    for(const auto& emp : employees){
+        if(emp -> getEmpType() == 2){
             emp -> showInfor();
         }
     }

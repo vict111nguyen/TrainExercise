@@ -8,8 +8,8 @@ public:
     void showInfor() const;
     std::string getGraDate() const;
     std::string getGraRank() const;
-    std::string setGraDate(const std::string& graDate);
-    std::string setGraRank(const std::string& gradRank);
+    void setGraDate(const std::string& graDate);
+    void setGraRank(const std::string& gradRank);
     
 private:
     std::string graDate;

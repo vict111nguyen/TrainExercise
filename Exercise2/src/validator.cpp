@@ -1,13 +1,13 @@
-#include "validator.h"
+#include "../headers/validator.h"
 
 void Validator::ValidateFullName(const std::string& fullName){
-    std::regex pattern("[a-zA-Z]+");
+    std::regex pattern("[a-zA-Z ]+");
     if(!std::regex_match(fullName, pattern)){
         throw std::invalid_argument("Invalid fullName!");
     }
 } 
 void Validator::ValidateBirthDay(const std::string& birthDay){
-    std::regex pattern("\\d{4}-\\d{2}-\\d{2}");
+    std::regex pattern("\\d{2}/\\d{2}/\\d{4}");
     if(!std::regex_match(birthDay, pattern)){
         throw std::invalid_argument("Invalid Birthday!");
     }
